@@ -11,14 +11,14 @@ const Navigation = () => {
                 <Navbar.Brand
                     as={Link}
                     to="/">
-                    <Image src="/Star-Wars-transparent-logo.png" />
+                    <Image src="/Star-Wars-transparent-logo.png" /> Encyklopedia
                 </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
-                        <Nav.Link as={NavLink} end to="/movies">Movies</Nav.Link>
-                        <Nav.Link as={NavLink} end to="/people">People</Nav.Link>
+                        <Nav.Link as={NavLink} end to="/movies">MOVIES</Nav.Link>
+                        <Nav.Link as={NavLink} end to="/people">PEOPLE</Nav.Link>
                 </Nav>
                 </Navbar.Collapse>
             </Container>

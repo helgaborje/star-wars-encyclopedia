@@ -5,6 +5,8 @@ import HomePage from './pages/HomePage'
 import Navigation from './components/Navigation'
 import MoviesPage from './pages/MoviesPage'
 import PeoplePage from './pages/PeoplePage'
+import { useState } from 'react'
+import Search from './components/Search'
 
 const App = () => {
 
@@ -20,6 +22,8 @@ const App = () => {
 
 						{/* // <Route path='*' element={</>} /> */}
 					</Routes>
+					{/* <Search/> */}
+
 			</Container>
 			
 			</div>
