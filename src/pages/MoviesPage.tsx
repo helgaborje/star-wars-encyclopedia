@@ -58,38 +58,27 @@ fetchMovies()
 
             {searchResult && (
                 <div id="search-results">
-					<Container>
-						<Row>
-							<ListGroup className='mb-3'>
-								<Col>
-						<Card style={{ width: '18rem' }}>
-					{searchResult.data.map(hit => (
-                            <ListGroup.Item
-                                action
-                                // href={hit.url}
-                                key={hit.id}
-						>
-							<Card.Body>
-        <Card.Title>{hit.title}</Card.Title>
-        <Card.Text>
-		<p><strong>Episode:</strong> {hit.episode_id}</p>
-                                <p><strong>Released:</strong> {hit.release_date}</p>
-                                <p> {hit.characters_count} <strong>characters</strong></p>
-        </Card.Text>
-        <Button variant="primary">Read more</Button>
-      </Card.Body>
-
-						</ListGroup.Item>
-						
+					<Row xs={1} md={2} lg={3} xl={4} xxl={5} className="g-4">
+						{searchResult.data.map(hit => (
+							<Col key={hit.id}>
+								<Card style={{ width: '18rem' }}>
+                            		<ListGroup.Item action>
+										<Card.Body>
+        									<Card.Title>{hit.title}</Card.Title>
+        										<Card.Text>
+													<p><strong>Episode:</strong> {hit.episode_id}</p>
+													<p><strong>Released:</strong> {hit.release_date}</p>
+													<p> {hit.characters_count} <strong>characters</strong></p>
+        										</Card.Text>
+        										<Button variant="primary">Read more</Button>
+      									</Card.Body>
+									</ListGroup.Item>
+								</Card>
+							</Col>
                         ))}
-									</Card>
-									</Col>
-							</ListGroup>
-							</Row>
-					</Container>
-                </div>
+					</Row>
+            	</div>
             )}
-
 		</>
 	)
 }
