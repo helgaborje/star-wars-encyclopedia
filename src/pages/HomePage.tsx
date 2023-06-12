@@ -20,19 +20,8 @@ const HomePage = () => {
 					<Col xs lg="2">
             			<h1 className="">Welcome to StarWars Encyclopedia</h1>
             		</Col>
-                      {/* {error && (
-			<div className='alert alert-warning mt-2'>
-				{error}
-			</div>
-			)} */}
-			
-			{/* {loading && (
-			<img
-				src="https://cdn.dribbble.com/users/891352/screenshots/2461612/darth_taper_dribbble.gif"
-				className="img-fluid py-5 w-50 justify-content-center"
-				/>) */}
-					</Row>
-</Container>
+				</Row>
+			</Container>
 		</>
 	)
 }

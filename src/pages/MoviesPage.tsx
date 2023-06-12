@@ -14,16 +14,16 @@ import Pagination from '../components/Pagination'
 
 
 const MoviesPage = () => {
-	const [data, setData] = useState<MoviesResponse|null>(null)
+	const [result, setResult] = useState<MoviesResponse|null>(null)
 	const [error, setError] = useState<string|null>(null)
 	const [loading, setLoading] = useState(false)
-	const [page, setPage] = useState(0)
+	const [page, setPage] = useState(1)
     const [searchInput, setSearchInput] = useState('')
     // const [searchResult, setSearchResult] = useState<MoviesResponse | null>()
 	const [searchParams, setSearchParams] = useSearchParams()
 
 
-	const getMovies =async () => {
+	const getMovies = async () => {
         setError(null)
         setLoading(true)
 		// setSearchResult(null)
@@ -31,7 +31,7 @@ const MoviesPage = () => {
 		try {
 			const res = await axios.get(`https://swapi.thehiveresistance.com/api/films/`)
 			await new Promise(r => setTimeout(r, 3000))
-			setData(res.data)	
+			setResult(res.data)	
 
 		} catch (err: any) {
 			setError(err.message)
@@ -43,7 +43,7 @@ const MoviesPage = () => {
 			getMovies()
 	   }, [])
 	
-	console.log(data)
+	console.log(result)
 	
 	return (
 		<>
@@ -58,37 +58,42 @@ const MoviesPage = () => {
 				/>
             )}
 
-            {data && (
+            {result && (
                 <div id="results">
 					<Row xs={1} md={2} lg={3} xl={4} xxl={5} className="g-4">
-						{data.data.map(hit => (
+						{result.data.map(hit => (
 							<Col>
 								<Card style={{ width: '18rem' }}>
-									<Card.Body>
-										<ListGroup>
-											<ListGroup.Item
-												action
-												key={hit.id}>
+									<ListGroup>
+										<ListGroup.Item
+											key={hit.id}>
+											<Card.Body>
 												<Card.Title>{hit.title}</Card.Title>
 													<Card.Text>
-														<p><strong>Episode:</strong> {hit.episode_id}</p>
-														<p><strong>Released:</strong> {hit.release_date}</p>
-														<p> {hit.characters_count} <strong>characters</strong></p>
+														<strong>Episode:</strong> {hit.episode_id}
 													</Card.Text>
-												<Button variant="primary">Read more</Button>
-											</ListGroup.Item>
-										</ListGroup>
-      								</Card.Body>
+													<Card.Text>
+														<strong>Released:</strong> {hit.release_date}
+													</Card.Text>
+													<Card.Text>
+														{hit.characters_count} <strong>characters</strong>
+													</Card.Text>
+											</Card.Body>
+											<div className="d-grid">
+                  								<Button variant="primary">Read more</Button>
+                							</div>
+										</ListGroup.Item>
+									</ListGroup>
 								</Card>
 							</Col>
                         ))}
 					</Row>
 
 					<Pagination
-						page={data.current_page}
-						total={data.total}
-						hasPreviousPage={page > 0}
-						hasNextPage={page + 1 < data.current_page}
+						page={page}
+						total={result.last_page}
+						hasPreviousPage={page > 1}
+						hasNextPage={page + 1 < result.last_page}
 						onPreviousPage={() => { setPage(prevValue => prevValue - 1) }}
 						onNextPage={() => { setPage(prevValue => prevValue + 1) }}
 					/>
