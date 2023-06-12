@@ -29,6 +29,10 @@ export type People = {
         id: number
         name: string
     }
+    films: { 
+        id: number
+        title: string
+    } []
 
 }
 

@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { People } from '../types'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import Card from 'react-bootstrap/Card'
 
 
 const PersonPage = () => {
@@ -37,11 +38,25 @@ const PersonPage = () => {
     return (
         <>
             {person && (
-                
-                
-        <div>
-          <div>{person.name}</div>
-        </div>
+
+                <Card>
+                    <Card.Body>
+                        <Card.Title>{person.name}</Card.Title>
+                            <Card.Text>
+                                <strong>Homeworld</strong> {person.homeworld.name}
+                            </Card.Text>
+                            <Card.Text>
+                                 <strong>Appearce in films:</strong>
+                            </Card.Text>
+                                {person.films.map((film) => (
+                                    <div key={film.id}>
+                                        <Link to={`https://swapi.thehiveresistance.com/api/films/${film.id}`}>{film.title}</Link>
+                                    </div>
+                                ))}
+                    </Card.Body>
+
+                </Card>
+
       )}
     </>
     )
