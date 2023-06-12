@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row'
 import useGetData from '../hooks/useGetData'
 import axios from 'axios'
 import { MoviesResponse } from '../types'
+import Pagination from '../components/Pagination'
 
 
 
@@ -58,7 +59,7 @@ const MoviesPage = () => {
             )}
 
             {data && (
-                <div id="search-results">
+                <div id="results">
 					<Row xs={1} md={2} lg={3} xl={4} xxl={5} className="g-4">
 						{data.data.map(hit => (
 							<Col>
@@ -82,6 +83,15 @@ const MoviesPage = () => {
 							</Col>
                         ))}
 					</Row>
+
+					<Pagination
+						page={data.current_page}
+						total={data.total}
+						hasPreviousPage={page > 0}
+						hasNextPage={page + 1 < data.current_page}
+						onPreviousPage={() => { setPage(prevValue => prevValue - 1) }}
+						onNextPage={() => { setPage(prevValue => prevValue + 1) }}
+					/>
             	</div>
             )}
 		</>
