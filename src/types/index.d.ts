@@ -6,7 +6,7 @@ export type Movies = {
     characters_count: number
 }
 
-export type Movies_SearchResponse = {
+export type MoviesResponse = {
     data: Movies[]
     per_page: number
     total: number
