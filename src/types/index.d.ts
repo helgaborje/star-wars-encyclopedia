@@ -4,6 +4,10 @@ export type Movies = {
     episode_id: number
     release_date: number
     characters_count: number
+    characters: {
+        id: number
+        name: string
+    } []
 }
 
 export type MoviesResponse = {

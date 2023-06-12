@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card'
 const PersonPage = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const [person, setPerson] = useState<People>(null)
+    const [person, setPerson] = useState<People | null>(null)
     const { id } = useParams()
     const personId = Number(id)
     
@@ -50,7 +50,7 @@ const PersonPage = () => {
                             </Card.Text>
                                 {person.films.map((film) => (
                                     <div key={film.id}>
-                                        <Link to={`https://swapi.thehiveresistance.com/api/films/${film.id}`}>{film.title}</Link>
+                                        <Link to={`/films/${film.id}`}>{film.title}</Link>
                                     </div>
                                 ))}
                     </Card.Body>

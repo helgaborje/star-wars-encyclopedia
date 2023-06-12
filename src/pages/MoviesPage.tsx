@@ -3,7 +3,7 @@ import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import useGetData from '../hooks/useGetData'
@@ -17,6 +17,7 @@ const MoviesPage = () => {
 	const [result, setResult] = useState<MoviesResponse|null>(null)
 	const [error, setError] = useState<string|null>(null)
 	const [loading, setLoading] = useState(false)
+	const navigate = useNavigate()
 	const [page, setPage] = useState(1)
     const [searchInput, setSearchInput] = useState('')
     // const [searchResult, setSearchResult] = useState<MoviesResponse | null>()
@@ -37,7 +38,12 @@ const MoviesPage = () => {
 			setError(err.message)
 		}
 		setLoading(false)
-    }
+	}
+	const handleReadMore = (id: number) => {
+
+		navigate(`${id}`)
+		
+			}
     
        useEffect(() => {
 			getMovies()
@@ -80,7 +86,9 @@ const MoviesPage = () => {
 													</Card.Text>
 											</Card.Body>
 											<div className="d-grid">
-                  								<Button variant="primary">Read more</Button>
+											<Button
+													onClick={() => handleReadMore(hit.id)}
+													variant="primary">Read more</Button>
                 							</div>
 										</ListGroup.Item>
 									</ListGroup>

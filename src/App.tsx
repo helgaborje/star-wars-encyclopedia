@@ -8,6 +8,7 @@ import PeoplePage from './pages/PeoplePage'
 import { useState } from 'react'
 import Search from './components/Search'
 import PersonPage from './pages/PersonPage'
+import MoviePage from './pages/MoviePage'
 
 const App = () => {
 
@@ -18,7 +19,8 @@ const App = () => {
 				<Container className='py-3'>
 					<Routes>
 						<Route path='/' element={<HomePage/>} />
-            <Route path='/movies' element={<MoviesPage />} />
+						<Route path='/films' element={<MoviesPage />} />
+						<Route path='/films/:id' element={<MoviePage />} />
 						<Route path='/people' element={<PeoplePage />} />
 						<Route path='/people/:id' element={<PersonPage/>} />
 
