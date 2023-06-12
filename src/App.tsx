@@ -7,6 +7,7 @@ import MoviesPage from './pages/MoviesPage'
 import PeoplePage from './pages/PeoplePage'
 import { useState } from 'react'
 import Search from './components/Search'
+import PersonPage from './pages/PersonPage'
 
 const App = () => {
 
@@ -18,7 +19,8 @@ const App = () => {
 					<Routes>
 						<Route path='/' element={<HomePage/>} />
             <Route path='/movies' element={<MoviesPage />} />
-            <Route path='/people' element={<PeoplePage/>} />
+						<Route path='/people' element={<PeoplePage />} />
+						<Route path='/people/:id' element={<PersonPage/>} />
 
 						{/* // <Route path='*' element={</>} /> */}
 					</Routes>

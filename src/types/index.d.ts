@@ -25,6 +25,10 @@ export type People = {
     species_count: number
     starships_count: number
     vehicles_count: number
+    homeworld: {
+        id: number
+        name: string
+    }
 
 }
 

@@ -1,9 +1,11 @@
+
+	
 import { useEffect, useRef, useState } from 'react'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import axios from 'axios'
@@ -16,6 +18,8 @@ const PeoplePage = () => {
 	const [result, setResult] = useState<PeopleResponse|null>(null)
 	const [error, setError] = useState<string|null>(null)
 	const [loading, setLoading] = useState(false)
+	const location = useLocation()
+	const navigate = useNavigate()
 	const [page, setPage] = useState(1)
     const [searchInput, setSearchInput] = useState('')
     // const [searchResult, setSearchResult] = useState<MoviesResponse | null>()
@@ -28,7 +32,7 @@ const PeoplePage = () => {
 		// setSearchResult(null)
 		
 		try {
-			const res = await axios.get(`https://swapi.thehiveresistance.com/api/people?page=${page}`)
+			const res = await axios.get(`https://swapi.thehiveresistance.com/api/people/`)
 			// await new Promise(r => setTimeout(r, 3000))
 			setResult(res.data)	
 
@@ -38,20 +42,11 @@ const PeoplePage = () => {
 		setLoading(false)
 	}
 	
-	// const handleSubmit = (e: React.FormEvent) => {
-	// 	e.preventDefault()
+	const handleReadMore = (id: number) => {
 
-	// 	// haxx0r
-	// 	if (!searchInput.trim().length) {
-	// 		return
-	// 	}
+navigate(`${id}`)
 
-	// 	// reset page state
-	// 	setPage(0)
-
-	// 	// set input value as query in searchParams
-	// 	setSearchParams({ query: searchInput })    // ?query=tesla
-	// }
+	}
     
        useEffect(() => {
 			getPeople()
@@ -84,14 +79,16 @@ const PeoplePage = () => {
 												<Card.Body>
 													<Card.Title>{hit.name}</Card.Title>
 														<Card.Text>
-															<strong>Year of birth</strong> {hit.birth_year}
+															<strong>Homeworld</strong> {hit.homeworld.name}
 														</Card.Text>
 														<Card.Text>
-															<strong>Number of films</strong> {hit.films_count}
+															<strong>Appearce in</strong> {hit.films_count} <strong>films</strong>
 														</Card.Text>
       											</Card.Body>
 												<div className="d-grid">
-                  									<Button variant="primary">Read more</Button>
+												<Button
+													onClick={() => handleReadMore(hit.id)}
+													variant="primary">Read more</Button>
                 								</div>
 											</ListGroup.Item>
 										</ListGroup>
@@ -116,3 +113,5 @@ const PeoplePage = () => {
 
 export default PeoplePage
 
+
+   
