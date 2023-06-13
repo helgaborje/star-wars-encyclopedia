@@ -11,7 +11,7 @@ const Navigation = () => {
                 <Navbar.Brand
                     as={Link}
                     to="/">
-                    <Image src="/Star-Wars-transparent-logo.png" /> Encyklopedia
+                    <Image src="/Star-Wars-transparent-logo.png" /> 
                 </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

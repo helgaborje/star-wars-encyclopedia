@@ -58,11 +58,15 @@ const MoviesPage = () => {
 
 			{error && <Alert variant='warning'>{error}</Alert>}
 
-			{loading && (
-				<img
-					src="https://cdn.dribbble.com/users/891352/screenshots/2461612/darth_taper_dribbble.gif"
-					className="img-fluid py-5 w-50 justify-content-center"
-				/>
+            {loading && (
+				<div className='d-flex justify-content-center align-items-center'
+					style={{ height: '30vh' }}>
+                    <img
+                        src="https://cdn.dribbble.com/users/891352/screenshots/2461612/darth_taper_dribbble.gif"
+                        alt="Loading Spinner"
+                        style={{ width: '200px' }}
+                    />
+                </div>
             )}
 
             {result && (
@@ -87,9 +91,10 @@ const MoviesPage = () => {
 													</Card.Text>
 											</Card.Body>
 											<div className="d-grid">
-											<Button
+												<Button
+													className='button'
 													onClick={() => handleReadMore(hit.id)}
-													variant="primary">Read more</Button>
+													variant="outline-primary">Read more</Button>
 											</div>
 										</ListGroup.Item>
 									</ListGroup>

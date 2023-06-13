@@ -29,7 +29,7 @@ const PeoplePage = () => {
 		
 		try {
 			const res = await axios.get(`https://swapi.thehiveresistance.com/api/people/`)
-			// await new Promise(r => setTimeout(r, 3000))
+			await new Promise(r => setTimeout(r, 3000))
 			setResult(res.data)	
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -56,11 +56,16 @@ const PeoplePage = () => {
 
 			{error && <Alert variant='warning'>{error}</Alert>}
 
-			{loading && (
-				<img
-					src="https://cdn.dribbble.com/users/891352/screenshots/2461612/darth_taper_dribbble.gif"
-					className="img-fluid py-5 w-50 justify-content-center"
-				/>
+            {loading && (
+                <div className='d-flex justify-content-center align-items-center' style={{ height: '30vh' }}>
+                    <img
+                        src="https://cdn.dribbble.com/users/891352/screenshots/2461612/darth_taper_dribbble.gif"
+                        // className="img-fluid py-5 spinner-size"
+                        alt="Loading Spinner"
+                        style={{ width: '200px' }}
+
+                    />
+                </div>
             )}
 
             {result && (
@@ -83,8 +88,9 @@ const PeoplePage = () => {
 												</Card.Body>
 												<div className="d-grid">
 												<Button
+													className='button'
 													onClick={() => handleReadMore(hit.id)}
-													variant="primary">Read more</Button>
+													variant="outline-primary">Read more</Button>
 												</div>
 											</ListGroup.Item>
 										</ListGroup>

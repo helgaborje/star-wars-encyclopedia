@@ -1,14 +1,39 @@
 @import "bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
 
 h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.75em;
+        font-family: 'Oswald', sans-serif;
 }
 
 body {
-    background-color: black;
+    background-image: url('public/background-sw.jpg');
     color: white;
+}
+
+a {
+    color: #ffe81f;
 }
 
 .navbar {
     background-color: rgb(26, 25, 25);
+}
+
+.card {
+    color: white;
+    background-color: rgb(54, 54, 54);
+    border-color: black;
+}
+
+.list-group-item {
+    color: white;
+    background-color: rgb(54, 54, 54);
+    border-color: black;
+}
+
+.button {
+    color: #ffe81f;
+    border-color: #ffe81f;
+    --bs-btn-hover-bg: #ffe81f;
+    --bs-btn-hover-border-color: #ffe81f;
 }

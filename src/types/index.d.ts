@@ -7,7 +7,8 @@ export type Movies = {
     characters: {
         id: number
         name: string
-    } []
+    }[]
+    opening_crawl: string
 }
 
 export type MoviesResponse = {

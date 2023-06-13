@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Movies } from '../types'
 import { Link, useParams } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
+import Alert from 'react-bootstrap/Alert'
 
 
 const MoviePage = () => {
@@ -19,7 +20,7 @@ const MoviePage = () => {
 
         try {
             const res = await axios.get(`https://swapi.thehiveresistance.com/api/films/${id}`)
-            // await new Promise(r => setTimeout(r, 3000))
+            await new Promise(r => setTimeout(r, 3000))
             setMovie(res.data)
     
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,6 +39,20 @@ const MoviePage = () => {
     
     return (
         <>
+            {error && <Alert variant='warning'>{error}</Alert>}
+
+            {loading && (
+                <div className='d-flex justify-content-center align-items-center' style={{ height: '30vh' }}>
+                    <img
+                        src="https://cdn.dribbble.com/users/891352/screenshots/2461612/darth_taper_dribbble.gif"
+                        // className="img-fluid py-5 spinner-size"
+                        alt="Loading Spinner"
+                        style={{ width: '200px' }}
+
+                    />
+                </div>
+            )}
+
             {movie && (
 
                 <Card>
@@ -48,6 +63,9 @@ const MoviePage = () => {
                         </Card.Text>
                         <Card.Text>
                                 <strong>Relaese date</strong> {movie.release_date}
+                        </Card.Text>
+                        <Card.Text>
+                            {movie.opening_crawl}
                             </Card.Text>
                             <Card.Text>
                                  <strong>Characters</strong>
