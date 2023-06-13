@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Movies, People } from '../types'
+import { Movies } from '../types'
 import { Link, useParams } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 
@@ -22,6 +22,7 @@ const MoviePage = () => {
             // await new Promise(r => setTimeout(r, 3000))
             setMovie(res.data)
     
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             setError(err.message)
         }

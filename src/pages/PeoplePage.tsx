@@ -1,11 +1,9 @@
-
-	
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import axios from 'axios'
@@ -13,17 +11,15 @@ import Pagination from '../components/Pagination'
 import { PeopleResponse } from '../types'
 
 
-
 const PeoplePage = () => {
 	const [result, setResult] = useState<PeopleResponse|null>(null)
 	const [error, setError] = useState<string|null>(null)
 	const [loading, setLoading] = useState(false)
-	const location = useLocation()
 	const navigate = useNavigate()
 	const [page, setPage] = useState(1)
-    const [searchInput, setSearchInput] = useState('')
-    // const [searchResult, setSearchResult] = useState<MoviesResponse | null>()
-	const [searchParams, setSearchParams] = useSearchParams()
+    // const [searchInput, setSearchInput] = useState('')
+    // // const [searchResult, setSearchResult] = useState<MoviesResponse | null>()
+	// const [searchParams, setSearchParams] = useSearchParams()
 
 
 	const getPeople =async () => {
@@ -36,6 +32,7 @@ const PeoplePage = () => {
 			// await new Promise(r => setTimeout(r, 3000))
 			setResult(res.data)	
 
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			setError(err.message)
 		}
@@ -44,15 +41,14 @@ const PeoplePage = () => {
 	
 	const handleReadMore = (id: number) => {
 
-navigate(`${id}`)
+		navigate(`${id}`)
 
 	}
     
-       useEffect(() => {
-			getPeople()
-	   }, [page])
+	useEffect(() => {
+		getPeople()
+	}, [page])
 	
-	console.log(result)
 	
 	return (
 		<>
@@ -84,12 +80,12 @@ navigate(`${id}`)
 														<Card.Text>
 															<strong>Appearce in</strong> {hit.films_count} <strong>films</strong>
 														</Card.Text>
-      											</Card.Body>
+												</Card.Body>
 												<div className="d-grid">
 												<Button
 													onClick={() => handleReadMore(hit.id)}
 													variant="primary">Read more</Button>
-                								</div>
+												</div>
 											</ListGroup.Item>
 										</ListGroup>
 								</Card>
@@ -105,7 +101,7 @@ navigate(`${id}`)
 						onPreviousPage={() => { setPage(prevValue => prevValue - 1) }}
 						onNextPage={() => { setPage(prevValue => prevValue + 1) }}
 					/>
-            	</div>
+				</div>
             )}
 		</>
 	)

@@ -6,7 +6,6 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
-import useGetData from '../hooks/useGetData'
 import axios from 'axios'
 import { MoviesResponse } from '../types'
 import Pagination from '../components/Pagination'
@@ -19,9 +18,9 @@ const MoviesPage = () => {
 	const [loading, setLoading] = useState(false)
 	const navigate = useNavigate()
 	const [page, setPage] = useState(1)
-    const [searchInput, setSearchInput] = useState('')
-    // const [searchResult, setSearchResult] = useState<MoviesResponse | null>()
-	const [searchParams, setSearchParams] = useSearchParams()
+    // const [searchInput, setSearchInput] = useState('')
+    // // const [searchResult, setSearchResult] = useState<MoviesResponse | null>()
+	// const [searchParams, setSearchParams] = useSearchParams()
 
 
 	const getMovies = async () => {
@@ -34,20 +33,22 @@ const MoviesPage = () => {
 			await new Promise(r => setTimeout(r, 3000))
 			setResult(res.data)	
 
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			setError(err.message)
 		}
 		setLoading(false)
 	}
+
 	const handleReadMore = (id: number) => {
 
 		navigate(`${id}`)
 		
-			}
+	}
     
-       useEffect(() => {
-			getMovies()
-	   }, [])
+    useEffect(() => {
+		getMovies()
+	}, [])
 	
 	console.log(result)
 	
@@ -89,7 +90,7 @@ const MoviesPage = () => {
 											<Button
 													onClick={() => handleReadMore(hit.id)}
 													variant="primary">Read more</Button>
-                							</div>
+											</div>
 										</ListGroup.Item>
 									</ListGroup>
 								</Card>
@@ -105,7 +106,7 @@ const MoviesPage = () => {
 						onPreviousPage={() => { setPage(prevValue => prevValue - 1) }}
 						onNextPage={() => { setPage(prevValue => prevValue + 1) }}
 					/>
-            	</div>
+				</div>
             )}
 		</>
 	)
