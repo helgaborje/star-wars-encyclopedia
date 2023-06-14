@@ -24,7 +24,7 @@ const PeoplePage = () => {
 
 	const search = searchParams.get('search')
 
-	const getPeople =async (page:any) => {
+	const getPeople =async (page:number) => {
         setError(null)
         setLoading(true)
 		
@@ -38,7 +38,7 @@ const PeoplePage = () => {
 			setError(err.message)
 		}
 		setLoading(false)
-		setPageParams({ page: page + 0 })
+		setPageParams({ page: String(page) });
 	}
 
 	const searchPeople =async (searchQuery: string, searchPage = 0 ) => {
@@ -98,7 +98,7 @@ const PeoplePage = () => {
 			{!loading && (
 				<SearchForm
 					onSubmit={handleSubmit} />
-      )}
+			)}
 
             {loading && (
                 <div className='d-flex justify-content-center align-items-center' style={{ height: '30vh' }}>
@@ -106,7 +106,6 @@ const PeoplePage = () => {
                         src="https://cdn.dribbble.com/users/891352/screenshots/2461612/darth_taper_dribbble.gif"
                         alt="Loading Spinner"
                         style={{ width: '200px' }}
-
                     />
                 </div>
             )}
