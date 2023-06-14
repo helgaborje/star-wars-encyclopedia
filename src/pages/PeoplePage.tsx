@@ -40,7 +40,6 @@ const PeoplePage = () => {
 			setError(err.message)
 		}
 		setLoading(false)
-		// setPageParams({ page: String(page) })
 	}
 
 	const searchPeople = async (searchQuery: string, searchPage = 0 ) => {
@@ -50,7 +49,7 @@ const PeoplePage = () => {
 		
         try {
 			const res = await searchPerson(searchQuery, searchPage)
-			await new Promise(r => setTimeout(r, 3000))
+			await new Promise(r => setTimeout(r, 2000))
 			setResult(res)	
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

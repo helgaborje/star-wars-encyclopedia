@@ -13,30 +13,28 @@ const SearchForm: React.FC<SearchFormProps> = ({ value, onChange, onSubmit }) =>
 
 
   return (
-    <>
-
-    <Form className='mb-4' onSubmit={onSubmit}>
-        <Form.Group className="mb-3" controlId="querySearch">
-            <Form.Control
-                onChange={onChange}
-                placeholder="Enter your search query"
-                required
-                type="text"
-                value={value}
-            />
-        </Form.Group>
-
-        <div className="d-flex justify-content-end">
-            <Button
-            className='button'
-                variant="outline-warning"
-                type="submit"
-                disabled={!value.trim().length}
-            >Search</Button>
-        </div>
+      <>
+          <Form className='mb-4' onSubmit={onSubmit}>
+              <Form.Group className="mb-3" controlId="querySearch">
+                  <Form.Control
+                      onChange={onChange}
+                      placeholder="Enter your search query"
+                      required
+                      type="text"
+                      value={value}
+                  />
+              </Form.Group>
+              
+              <div className="d-flex justify-content-end">
+                  <Button
+                      className='button'
+                      variant="outline-warning"
+                      type="submit"
+                      disabled={!value.trim().length}
+                  >Search</Button>
+              </div>
           </Form>
-         
-</>
+      </>
   )
 }
 

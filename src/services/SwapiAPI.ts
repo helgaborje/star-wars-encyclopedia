@@ -15,10 +15,6 @@ const get = async <T>(endpoint: string) => {
 	return response.data as T
 }
 
-// export const searchMovie = async (query: string) => {
-// 	return get<MoviesResponse>(`/films/?search=${query}`)
-// }
-
 export const searchMovie = async (query: string, page = 1) => {
 	return get<MoviesResponse>(`/films/?search=${query}&page=${page}`)
 }

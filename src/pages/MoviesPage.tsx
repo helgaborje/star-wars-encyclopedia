@@ -31,7 +31,7 @@ const MoviesPage = () => {
 		setResult(null)
 		
 		try {
-			const res = await axios.get(`https://swapi.thehiveresistance.com/api/films/`)
+			const res = await axios.get(`https://swapi.thehiveresistance.com/api/films/?page=${page}`)
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res.data)	
 
@@ -50,7 +50,7 @@ const MoviesPage = () => {
 		
         try {
 			const res = await searchMovie(searchQuery, searchPage)
-			await new Promise(r => setTimeout(r, 3000))
+			await new Promise(r => setTimeout(r, 2000))
 			setResult(res)	
 			
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -88,10 +88,10 @@ const MoviesPage = () => {
 		if (!search) {
 			getMovies(page)
 		} else {
-			searchMovies(search)
+			setSearchParams({search: searchInput})
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [page, pageParams, search])
+        }, [page, search])
 	
 	return (
 		<>

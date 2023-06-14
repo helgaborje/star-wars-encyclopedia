@@ -7,6 +7,7 @@ import MoviesPage from './pages/MoviesPage'
 import PeoplePage from './pages/PeoplePage'
 import PersonPage from './pages/PersonPage'
 import MoviePage from './pages/MoviePage'
+import NotFound from './pages/NotFound'
 
 const App = () => {
 
@@ -22,9 +23,8 @@ const App = () => {
 						<Route path='/people' element={<PeoplePage />} />
 						<Route path='/people/:id' element={<PersonPage/>} />
 
-						{/* // <Route path='*' element={</>} /> */}
+						<Route path="*" element={<NotFound />} />
 					</Routes>
-					{/* <Search/> */}
 
 			</Container>
 			
