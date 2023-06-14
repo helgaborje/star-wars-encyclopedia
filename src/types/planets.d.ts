@@ -5,6 +5,11 @@ export type Planets = {
     population: number
     residents_count: number
     rotation_period: number
+    climate: string
+    residents: {
+        id: number
+        name: string
+    } []
 }
 
 export type PlanetsResponse = {

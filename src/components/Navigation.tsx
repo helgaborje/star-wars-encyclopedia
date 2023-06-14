@@ -20,6 +20,9 @@ const Navigation = () => {
                         <Nav.Link as={NavLink} end to="/films">MOVIES</Nav.Link>
                         <Nav.Link as={NavLink} end to="/people">PEOPLE</Nav.Link>
                         <Nav.Link as={NavLink} end to="/planets">PLANETS</Nav.Link>
+                        <Nav.Link as={NavLink} end to="/species">SPECIES</Nav.Link>
+                        <Nav.Link as={NavLink} end to="/starships">STARSHIPS</Nav.Link>
+                        <Nav.Link as={NavLink} end to="/vehicles">VEHICLES</Nav.Link>
                 </Nav>
                 </Navbar.Collapse>
             </Container>
