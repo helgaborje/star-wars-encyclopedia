@@ -20,13 +20,15 @@ const PeoplePage = () => {
 	const navigate = useNavigate()
 	const [page, setPage] = useState(1)
 	const [pageParams, setPageParams] = useSearchParams("page")
+	const [searchInput, setSearchInput] = useState("")
 	const [searchParams, setSearchParams] = useSearchParams()
 
 	const search = searchParams.get('search')
 
-	const getPeople =async (page:number) => {
+	const getPeople = async (page: number) => {
         setError(null)
-        setLoading(true)
+		setLoading(true)
+		setResult(null)
 		
 		try {
 			const res = await axios.get(`https://swapi.thehiveresistance.com/api/people?page=${page}`)
@@ -38,10 +40,10 @@ const PeoplePage = () => {
 			setError(err.message)
 		}
 		setLoading(false)
-		setPageParams({ page: String(page) });
+		// setPageParams({ page: String(page) })
 	}
 
-	const searchPeople =async (searchQuery: string, searchPage = 0 ) => {
+	const searchPeople = async (searchQuery: string, searchPage = 0 ) => {
         setError(null)
         setLoading(true)
 		setResult(null)
@@ -60,21 +62,22 @@ const PeoplePage = () => {
 	
 	const handleReadMore = (id: number) => {
 		navigate(`${id}`)
-
 	}
 
-	const handleSubmit = (searchQuery: string) => {
-		if (!searchQuery.trim().length) {
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault()
+		if (!searchInput.trim().length) {
 			return
 		}
 	
 		setPage(0)
-		setSearchParams({ search: searchQuery })
-		searchPeople(searchQuery)
+		setSearchParams({ search: searchInput })
+		searchPeople(searchInput)
 	}
     
 	useEffect(() => {
 		const currentPage = pageParams.get("page")
+		
 		if (currentPage) {
 			setPage(parseInt(currentPage))
 		} else {
@@ -85,9 +88,9 @@ const PeoplePage = () => {
 		if (!search) {
 			getPeople(page)
 		} else {
-			searchPeople(search)
+			setSearchParams({search: searchInput})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		}}, [page, pageParams, search])
+		}}, [page, search])
 	
 	
 	return (
@@ -95,8 +98,11 @@ const PeoplePage = () => {
 			<h1>People</h1>
 
 			{error && <Alert variant='warning'>{error}</Alert>}
-			{!loading && (
+
+			{!loading && !error && (
 				<SearchForm
+					value={searchInput}
+					onChange={e => setSearchInput(e.target.value)}
 					onSubmit={handleSubmit} />
 			)}
 
@@ -111,7 +117,11 @@ const PeoplePage = () => {
             )}
 
             {result && (
-                <div id="results">
+				<div id="results">
+					{result.data.length > 0 && search ?
+						<p>Showing {result.total} search results for {search}...</p>
+						: <p></p>
+					}
 					<Row xs={1} md={2} lg={3} xl={4} xxl={5} className="g-4">
 						{result.data.map(hit => (
 							<Col>

@@ -1,32 +1,28 @@
-import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
 
 interface SearchFormProps {
-    onSubmit: (searchQuery: string) => void
+    value: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onChange: (e: any) => void
+    onSubmit: (e: React.FormEvent) => void
   }
 
-const SearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
-    const [searchInput, setSearchInput] = useState('')
+const SearchForm: React.FC<SearchFormProps> = ({ value, onChange, onSubmit }) => {
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        onSubmit(searchInput)
-      }
 
   return (
     <>
 
-    <Form className='mb-4' onSubmit={handleSubmit}>
+    <Form className='mb-4' onSubmit={onSubmit}>
         <Form.Group className="mb-3" controlId="querySearch">
-
             <Form.Control
-                onChange={e => setSearchInput(e.target.value)}
+                onChange={onChange}
                 placeholder="Enter your search query"
                 required
                 type="text"
-                value={searchInput}
+                value={value}
             />
         </Form.Group>
 
@@ -35,7 +31,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSubmit }) => {
             className='button'
                 variant="outline-warning"
                 type="submit"
-                disabled={!searchInput.trim().length}
+                disabled={!value.trim().length}
             >Search</Button>
         </div>
           </Form>
