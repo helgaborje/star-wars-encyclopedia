@@ -21,7 +21,16 @@ const App = () => {
 						<Route path='/films' element={<MoviesPage />} />
 						<Route path='/films/:id' element={<MoviePage />} />
 						<Route path='/people' element={<PeoplePage />} />
-						<Route path='/people/:id' element={<PersonPage/>} />
+						<Route path='/people/:id' element={<PersonPage />} />
+
+						{/* <Route path='/planets' element={<PlanetsPage />} />
+						<Route path='/planets/:id' element={<PlanetPage />} />
+						<Route path='/species' element={<SpeciesPage />} />
+						<Route path='/species/:id' element={<SpeciePage />} />
+						<Route path='/starships' element={<starshipsPage />} />
+						<Route path='/starships/:id' element={<StarshipsPage />} />
+						<Route path='/vehicles' element={<VehiclesPage />} />
+						<Route path='/vehicles/:id' element={<VehiclePage/>} /> */}
 
 						<Route path="*" element={<NotFound />} />
 					</Routes>
