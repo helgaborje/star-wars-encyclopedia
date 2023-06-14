@@ -15,7 +15,7 @@ export type Vechicles = {
     films_count: number
 }
 
-export type VechiclesResponse = {
+export type VehiclesResponse = {
     current_page: number
     data: Vechicles[]
     last_page: number

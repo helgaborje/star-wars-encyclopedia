@@ -125,11 +125,10 @@ const MoviesPage = () => {
 					}
 					<Row xs={1} md={2} lg={3} xl={4} xxl={5} className="g-4">
 						{result.data.map(hit => (
-							<Col>
+							<Col key={hit.id}>
 								<Card style={{ width: '18rem' }}>
 									<ListGroup>
-										<ListGroup.Item
-											key={hit.id}>
+										<ListGroup.Item>
 											<Card.Body>
 												<Card.Title>{hit.title}</Card.Title>
 												<Card.Text>

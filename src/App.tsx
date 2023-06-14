@@ -8,6 +8,7 @@ import PeoplePage from './pages/PeoplePage'
 import PersonPage from './pages/PersonPage'
 import MoviePage from './pages/MoviePage'
 import NotFound from './pages/NotFound'
+import PlanetsPage from './pages/PlanetsPage'
 
 const App = () => {
 
@@ -23,8 +24,8 @@ const App = () => {
 						<Route path='/people' element={<PeoplePage />} />
 						<Route path='/people/:id' element={<PersonPage />} />
 
-						{/* <Route path='/planets' element={<PlanetsPage />} />
-						<Route path='/planets/:id' element={<PlanetPage />} />
+						<Route path='/planets' element={<PlanetsPage />} />
+						{/* <Route path='/planets/:id' element={<PlanetPage />} />
 						<Route path='/species' element={<SpeciesPage />} />
 						<Route path='/species/:id' element={<SpeciePage />} />
 						<Route path='/starships' element={<starshipsPage />} />
