@@ -1,7 +1,17 @@
 @import "bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
 
-h1, h2, h3, h4, h5, h6 {
+@font-face {
+    font-family: 'StarWarsFont';
+    src: url('../fonts/Starjhol.ttf'); /* Replace the path and file name with your font file */
+  }
+
+h1 {
+    font-family: 'StarWarsFont';
+    font-size: 5em;
+    color: #ffe81f;
+}
+h2, h3, h4, h5, h6 {
     margin-bottom: 0.75em;
         font-family: 'Oswald', sans-serif;
 }
