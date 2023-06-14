@@ -1,27 +1,27 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Planets } from '../types'
+import { Movies } from '../../types'
 import { Link, useParams } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 import Alert from 'react-bootstrap/Alert'
 
 
-const PlanetPage = () => {
+const MoviePage = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const [planet, setPlanet] = useState<Planets | null>(null)
+    const [movie, setMovie] = useState<Movies | null>(null)
     const { id } = useParams()
-    const planetId = Number(id)
+    const movieId = Number(id)
     
 
-    const getPlanet = async (id: number) => {
+    const getMovie = async (id: number) => {
         setError(null)
         setLoading(true)
 
         try {
-            const res = await axios.get(`https://swapi.thehiveresistance.com/api/planets/${id}`)
+            const res = await axios.get(`https://swapi.thehiveresistance.com/api/films/${id}`)
             await new Promise(r => setTimeout(r, 3000))
-            setPlanet(res.data)
+            setMovie(res.data)
     
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
@@ -33,9 +33,9 @@ const PlanetPage = () => {
     
 	useEffect(() => {
 
-        getPlanet(planetId)
+        getMovie(movieId)
         
-	}, [planetId])
+	}, [movieId])
     
     return (
         <>
@@ -53,21 +53,24 @@ const PlanetPage = () => {
                 </div>
             )}
 
-            {planet && (
+            {movie && (
 
                 <Card>
                     <Card.Body>
-                        <Card.Title>{planet.name}</Card.Title>
+                        <Card.Title>{movie.title}</Card.Title>
                             <Card.Text>
-                                <strong>Rotaion period</strong> {planet.rotation_period}
+                                <strong>Episode</strong> {movie.episode_id}
                         </Card.Text>
                         <Card.Text>
-                                <strong>Climate</strong> {planet.climate}
+                                <strong>Relaese date</strong> {movie.release_date}
                         </Card.Text>
-                            <Card.Text>
-                                 <strong>Residents:</strong>
+                        <Card.Text>
+                            {movie.opening_crawl}
                             </Card.Text>
-                                {planet.residents.map((person) => (
+                            <Card.Text>
+                                 <strong>Characters</strong>
+                            </Card.Text>
+                                {movie.characters.map((person) => (
                                     <div key={person.id}>
                                         <Link to={`/people/${person.id}`}>{person.name}</Link>
                                     </div>
@@ -82,4 +85,4 @@ const PlanetPage = () => {
 }
 
 
-export default PlanetPage
+export default MoviePage

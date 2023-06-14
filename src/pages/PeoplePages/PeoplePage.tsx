@@ -7,14 +7,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import axios from 'axios'
-import Pagination from '../components/Pagination'
-import { PlanetsResponse } from '../types'
-import SearchForm from '../components/SearchForm'
-import { searchPlanet as searchPlanetAPI } from '../services/SwapiAPI'
+import Pagination from '../../components/Pagination'
+import { PeopleResponse } from '../../types'
+import SearchForm from '../../components/SearchForm'
+import { searchPerson } from '../../services/SwapiAPI'
 
 
-const PlanetsPage = () => {
-	const [result, setResult] = useState<PlanetsResponse|null>(null)
+const PeoplePage = () => {
+	const [result, setResult] = useState<PeopleResponse|null>(null)
 	const [error, setError] = useState<string|null>(null)
 	const [loading, setLoading] = useState(false)
 	const navigate = useNavigate()
@@ -25,13 +25,13 @@ const PlanetsPage = () => {
 
 	const search = searchParams.get('search')
 
-	const getPlanets = async (page: number) => {
+	const getPeople = async (page: number) => {
         setError(null)
 		setLoading(true)
 		setResult(null)
 		
 		try {
-			const res = await axios.get(`https://swapi.thehiveresistance.com/api/planets?page=${page}`)
+			const res = await axios.get(`https://swapi.thehiveresistance.com/api/people?page=${page}`)
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res.data)	
 
@@ -42,13 +42,13 @@ const PlanetsPage = () => {
 		setLoading(false)
 	}
 
-	const searchPlanet = async (searchQuery: string, searchPage = 0 ) => {
+	const searchPeople = async (searchQuery: string, searchPage = 0 ) => {
         setError(null)
         setLoading(true)
 		setResult(null)
 		
         try {
-			const res = await searchPlanetAPI(searchQuery, searchPage)
+			const res = await searchPerson(searchQuery, searchPage)
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res)	
 
@@ -71,7 +71,7 @@ const PlanetsPage = () => {
 	
 		setPage(0)
 		setSearchParams({ search: searchInput })
-		searchPlanet(searchInput)
+		searchPeople(searchInput)
 	}
     
 	useEffect(() => {
@@ -85,7 +85,7 @@ const PlanetsPage = () => {
 		}
 
 		if (!search) {
-			getPlanets(page)
+			getPeople(page)
 		} else {
 			setSearchParams({search: searchInput})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,7 +94,7 @@ const PlanetsPage = () => {
 	
 	return (
 		<>
-			<h1>Planets</h1>
+			<h1>People</h1>
 
 			{error && <Alert variant='warning'>{error}</Alert>}
 
@@ -130,7 +130,7 @@ const PlanetsPage = () => {
 												<Card.Body>
 													<Card.Title>{hit.name}</Card.Title>
 														<Card.Text>
-															<strong>Population</strong> {hit.population}
+															<strong>Homeworld</strong> {hit.homeworld.name}
 														</Card.Text>
 														<Card.Text>
 															<strong>Appearce in</strong> {hit.films_count} <strong>films</strong>
@@ -175,7 +175,7 @@ const PlanetsPage = () => {
 	)
 }
 
-export default PlanetsPage
+export default PeoplePage
 
 
    

@@ -8,7 +8,6 @@ h1, h2, h3, h4, h5, h6 {
 
 body {
     background-image: url('/background-sw.jpg');
-    background-size: cover;
     background-position: center;
     color: white;
 }
@@ -18,13 +17,14 @@ a {
 }
 
 .navbar {
-    background-color: rgb(26, 25, 25);
+    background-color: rgb(14, 13, 13);
 }
 
 .card {
     color: white;
-    background-color: rgb(54, 54, 54);
+    background-color: rgb(14, 13, 13);
     border-color: black;
+    opacity: 80%;
 }
 
 .list-group-item {

@@ -7,14 +7,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import axios from 'axios'
-import { MoviesResponse } from '../types'
-import Pagination from '../components/Pagination'
-import SearchForm from '../components/SearchForm'
-import { searchMovie } from '../services/SwapiAPI'
+import Pagination from '../../components/Pagination'
+import { PlanetsResponse } from '../../types'
+import SearchForm from '../../components/SearchForm'
+import { searchPlanet as searchPlanetAPI } from '../../services/SwapiAPI'
 
 
-const MoviesPage = () => {
-	const [result, setResult] = useState<MoviesResponse|null>(null)
+const PlanetsPage = () => {
+	const [result, setResult] = useState<PlanetsResponse|null>(null)
 	const [error, setError] = useState<string|null>(null)
 	const [loading, setLoading] = useState(false)
 	const navigate = useNavigate()
@@ -25,13 +25,13 @@ const MoviesPage = () => {
 
 	const search = searchParams.get('search')
 
-	const getMovies = async (page: number) => {
+	const getPlanets = async (page: number) => {
         setError(null)
-        setLoading(true)
+		setLoading(true)
 		setResult(null)
 		
 		try {
-			const res = await axios.get(`https://swapi.thehiveresistance.com/api/films/?page=${page}`)
+			const res = await axios.get(`https://swapi.thehiveresistance.com/api/planets?page=${page}`)
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res.data)	
 
@@ -40,31 +40,29 @@ const MoviesPage = () => {
 			setError(err.message)
 		}
 		setLoading(false)
-		setPageParams({ page: String(page) })
 	}
 
-	const searchMovies =async (searchQuery: string, searchPage = 0 ) => {
-		setError(null)
+	const searchPlanet = async (searchQuery: string, searchPage = 0 ) => {
+        setError(null)
         setLoading(true)
 		setResult(null)
 		
         try {
-			const res = await searchMovie(searchQuery, searchPage)
+			const res = await searchPlanetAPI(searchQuery, searchPage)
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res)	
-			
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			setError(err.message)
 		}
 		setLoading(false)
-    }
-    
+	}
+	
 	const handleReadMore = (id: number) => {
 		navigate(`${id}`)
 	}
 
-    
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 		if (!searchInput.trim().length) {
@@ -73,11 +71,12 @@ const MoviesPage = () => {
 	
 		setPage(0)
 		setSearchParams({ search: searchInput })
-		searchMovies(searchInput)
+		searchPlanet(searchInput)
 	}
-
+    
 	useEffect(() => {
 		const currentPage = pageParams.get("page")
+		
 		if (currentPage) {
 			setPage(parseInt(currentPage))
 		} else {
@@ -86,38 +85,37 @@ const MoviesPage = () => {
 		}
 
 		if (!search) {
-			getMovies(page)
+			getPlanets(page)
 		} else {
 			setSearchParams({search: searchInput})
-		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [page, search])
+		}}, [page, search])
+	
 	
 	return (
 		<>
-			<h1>Movies</h1>
+			<h1>Planets</h1>
 
 			{error && <Alert variant='warning'>{error}</Alert>}
 
-			{!loading && (
+			{!loading && !error && (
 				<SearchForm
-				value={searchInput}
-				onChange={e => setSearchInput(e.target.value)}
-				onSubmit={handleSubmit} />
+					value={searchInput}
+					onChange={e => setSearchInput(e.target.value)}
+					onSubmit={handleSubmit} />
 			)}
 
             {loading && (
-				<div className='d-flex justify-content-center align-items-center'
-					style={{ height: '30vh' }}>
+                <div className='d-flex justify-content-center align-items-center' style={{ height: '30vh' }}>
                     <img
                         src="https://cdn.dribbble.com/users/891352/screenshots/2461612/darth_taper_dribbble.gif"
                         alt="Loading Spinner"
                         style={{ width: '200px' }}
                     />
                 </div>
-			)}
-			
-			{result && (
+            )}
+
+            {result && (
 				<div id="results">
 					{result.data.length > 0 && search ?
 						<p>Showing {result.total} search results for {search}...</p>
@@ -127,33 +125,30 @@ const MoviesPage = () => {
 						{result.data.map(hit => (
 							<Col key={hit.id}>
 								<Card style={{ width: '18rem' }}>
-									<ListGroup>
-										<ListGroup.Item>
-											<Card.Body>
-												<Card.Title>{hit.title}</Card.Title>
-												<Card.Text>
-													<strong>Episode:</strong> {hit.episode_id}
-												</Card.Text>
-												<Card.Text>
-													<strong>Released:</strong> {hit.release_date}
-												</Card.Text>
-												<Card.Text>
-													{hit.characters_count} <strong>characters</strong>
-												</Card.Text>
-											</Card.Body>
-											<div className="d-grid">
+										<ListGroup>
+											<ListGroup.Item>
+												<Card.Body>
+													<Card.Title>{hit.name}</Card.Title>
+														<Card.Text>
+															<strong>Population</strong> {hit.population}
+														</Card.Text>
+														<Card.Text>
+															<strong>Appearce in</strong> {hit.films_count} <strong>films</strong>
+														</Card.Text>
+												</Card.Body>
+												<div className="d-grid">
 												<Button
 													className='button'
 													onClick={() => handleReadMore(hit.id)}
 													variant="outline-warning">Read more</Button>
-											</div>
-										</ListGroup.Item>
-									</ListGroup>
+												</div>
+											</ListGroup.Item>
+										</ListGroup>
 								</Card>
 							</Col>
-						))}
+                        ))}
 					</Row>
-	
+
 					<Pagination
 						page={page}
 						total={result.last_page}
@@ -175,11 +170,12 @@ const MoviesPage = () => {
 						}}
 					/>
 				</div>
-			)}
-            
+            )}
 		</>
 	)
 }
 
-export default MoviesPage
+export default PlanetsPage
 
+
+   
