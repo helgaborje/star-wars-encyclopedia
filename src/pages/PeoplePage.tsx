@@ -9,6 +9,8 @@ import Row from 'react-bootstrap/Row'
 import axios from 'axios'
 import Pagination from '../components/Pagination'
 import { PeopleResponse } from '../types'
+import SearchForm from '../components/SearchForm'
+import { searchPerson } from '../services/SwapiAPI'
 
 
 const PeoplePage = () => {
@@ -17,20 +19,37 @@ const PeoplePage = () => {
 	const [loading, setLoading] = useState(false)
 	const navigate = useNavigate()
 	const [page, setPage] = useState(1)
-    // const [searchInput, setSearchInput] = useState('')
-    // // const [searchResult, setSearchResult] = useState<MoviesResponse | null>()
-	// const [searchParams, setSearchParams] = useSearchParams()
+	const [pageParams, setPageParams] = useSearchParams("page")
+	const [searchParams, setSearchParams] = useSearchParams()
 
+	const search = searchParams.get('search')
 
-	const getPeople =async () => {
+	const getPeople =async (page:any) => {
         setError(null)
         setLoading(true)
-		// setSearchResult(null)
 		
 		try {
-			const res = await axios.get(`https://swapi.thehiveresistance.com/api/people/`)
-			await new Promise(r => setTimeout(r, 3000))
+			const res = await axios.get(`https://swapi.thehiveresistance.com/api/people?page=${page}`)
+			await new Promise(r => setTimeout(r, 2000))
 			setResult(res.data)	
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
+			setError(err.message)
+		}
+		setLoading(false)
+		setPageParams({ page: page + 0 })
+	}
+
+	const searchPeople =async (searchQuery: string, searchPage = 0 ) => {
+        setError(null)
+        setLoading(true)
+		setResult(null)
+		
+        try {
+			const res = await searchPerson(searchQuery, searchPage)
+			await new Promise(r => setTimeout(r, 3000))
+			setResult(res)	
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
@@ -40,14 +59,35 @@ const PeoplePage = () => {
 	}
 	
 	const handleReadMore = (id: number) => {
-
 		navigate(`${id}`)
 
 	}
+
+	const handleSubmit = (searchQuery: string) => {
+		if (!searchQuery.trim().length) {
+			return
+		}
+	
+		setPage(0)
+		setSearchParams({ search: searchQuery })
+		searchPeople(searchQuery)
+	}
     
 	useEffect(() => {
-		getPeople()
-	}, [page])
+		const currentPage = pageParams.get("page")
+		if (currentPage) {
+			setPage(parseInt(currentPage))
+		} else {
+			setPage(1)
+			setPageParams({ page: "1" })
+		}
+
+		if (!search) {
+			getPeople(page)
+		} else {
+			searchPeople(search)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		}}, [page, pageParams, search])
 	
 	
 	return (
@@ -55,12 +95,15 @@ const PeoplePage = () => {
 			<h1>People</h1>
 
 			{error && <Alert variant='warning'>{error}</Alert>}
+			{!loading && (
+				<SearchForm
+					onSubmit={handleSubmit} />
+      )}
 
             {loading && (
                 <div className='d-flex justify-content-center align-items-center' style={{ height: '30vh' }}>
                     <img
                         src="https://cdn.dribbble.com/users/891352/screenshots/2461612/darth_taper_dribbble.gif"
-                        // className="img-fluid py-5 spinner-size"
                         alt="Loading Spinner"
                         style={{ width: '200px' }}
 
@@ -90,7 +133,7 @@ const PeoplePage = () => {
 												<Button
 													className='button'
 													onClick={() => handleReadMore(hit.id)}
-													variant="outline-primary">Read more</Button>
+													variant="outline-warning">Read more</Button>
 												</div>
 											</ListGroup.Item>
 										</ListGroup>
@@ -103,9 +146,21 @@ const PeoplePage = () => {
 						page={page}
 						total={result.last_page}
 						hasPreviousPage={page > 1}
-						hasNextPage={page + 1 < result.last_page}
-						onPreviousPage={() => { setPage(prevValue => prevValue - 1) }}
-						onNextPage={() => { setPage(prevValue => prevValue + 1) }}
+						hasNextPage={page < result.last_page}
+						onPreviousPage={() => {
+							setPage(prevValue => {
+								const prevPage = prevValue - 1
+								setPageParams({ page: prevPage.toString() })
+								return prevPage
+							})
+						}}
+						onNextPage={() => {
+							setPage(prevValue => {
+								const nextPage = prevValue + 1
+								setPageParams({ page: nextPage.toString() })
+								return nextPage
+							})
+						}}
 					/>
 				</div>
             )}
