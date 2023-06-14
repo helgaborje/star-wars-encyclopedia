@@ -5,8 +5,6 @@ import HomePage from './pages/HomePage'
 import Navigation from './components/Navigation'
 import MoviesPage from './pages/MoviesPage'
 import PeoplePage from './pages/PeoplePage'
-import { useState } from 'react'
-import Search from './components/Search'
 import PersonPage from './pages/PersonPage'
 import MoviePage from './pages/MoviePage'
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Movies_SearchResponse } from '../types'
+import { MoviesResponse, PeopleResponse } from '../types'
 
 const instance = axios.create({
 	baseURL: "https://swapi.thehiveresistance.com/api",
@@ -15,6 +15,14 @@ const get = async <T>(endpoint: string) => {
 	return response.data as T
 }
 
-export const search = async (query: string) => {
-	return get<Movies_SearchResponse>(`/films/?search=${query}`)
+// export const searchMovie = async (query: string) => {
+// 	return get<MoviesResponse>(`/films/?search=${query}`)
+// }
+
+export const searchMovie = async (query: string, page = 1) => {
+	return get<MoviesResponse>(`/films/?search=${query}&page=${page}`)
+}
+
+export const searchPerson = async (query: string, page = 1) => {
+	return get<PeopleResponse>(`/people/?search=${query}&page=${page}`)
 }

@@ -7,7 +7,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-    background-image: url('public/background-sw.jpg');
+    background-image: url('/background-sw.jpg');
+    background-size: cover;
+    background-position: center;
     color: white;
 }
 
