@@ -41,7 +41,6 @@ const MoviesPage = () => {
 			setError(err.message)
 		}
 		setLoading(false)
-		setPageParams({ page: String(page) })
 	}
 
 	const searchMovies =async (searchQuery: string, searchPage = 0 ) => {
@@ -79,6 +78,7 @@ const MoviesPage = () => {
 
 	useEffect(() => {
 		const currentPage = pageParams.get("page")
+		
 		if (currentPage) {
 			setPage(parseInt(currentPage))
 		} else {
@@ -90,9 +90,8 @@ const MoviesPage = () => {
 			getMovies(page)
 		} else {
 			setSearchParams({search: searchInput})
-		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [page, search, location])
+		}}, [page, search, location])
 	
 	return (
 		<>
