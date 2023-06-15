@@ -9,8 +9,7 @@ const HomePage = () => {
 			<Container>
 				<Row className="justify-content-md-center">
 					<Col>
-						<h1 className="">Welcome to Star Wars Encyclopedia</h1>
-
+						<h1>Welcome to Star Wars Encyclopedia</h1>
 					</Col>
 				</Row>
 			</Container>

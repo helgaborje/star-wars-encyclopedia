@@ -2,27 +2,28 @@ import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Card from 'react-bootstrap/Card'
 import { useEffect, useState } from 'react'
-import { People } from '../../types'
+import { Starships } from '../../types'
 import { Link, useParams } from 'react-router-dom'
 
 
-const PersonPage = () => {
+const StarshipPage = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const [person, setPerson] = useState<People | null>(null)
+    const [starship, setStarship] = useState<Starships | null>(null)
     const { id } = useParams()
-    const personId = Number(id)
+    const starshipId = Number(id)
     
 
-    const getPerson = async (id: number) => {
+    const getStarship = async (id: number) => {
         setError(null)
         setLoading(true)
 
         try {
-            const res = await axios.get(`https://swapi.thehiveresistance.com/api/people/${id}`)
+            const res = await axios.get(`https://swapi.thehiveresistance.com/api/starships/${id}`)
             await new Promise(r => setTimeout(r, 3000))
-            setPerson(res.data)
+            setStarship(res.data)
     
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             setError(err.message)
         }
@@ -32,39 +33,43 @@ const PersonPage = () => {
     
 	useEffect(() => {
 
-        getPerson(personId)
+        getStarship(starshipId)
         
-	}, [personId])
+	}, [starshipId])
     
     return (
         <>
             {error && <Alert variant='warning'>{error}</Alert>}
 
             {loading && (
-                <div className='d-flex justify-content-center align-items-center'
-                    style={{ height: '30vh' }}>
+                <div className='d-flex justify-content-center align-items-center' style={{ height: '30vh' }}>
                     <img
                         src="https://cdn.dribbble.com/users/891352/screenshots/2461612/darth_taper_dribbble.gif"
+                        // className="img-fluid py-5 spinner-size"
                         alt="Loading Spinner"
                         style={{ width: '200px' }}
+
                     />
                 </div>
             )}
-            
-            {person && (
+
+            {starship && (
 
                 <Card>
-                    <h1>{person.name}</h1>
+                    <h1>{starship.name}</h1>
                     <Card.Body>
                         <Card.Text>
-                            <strong>Homeworld</strong> {person.homeworld.name}
+                            <strong>Model</strong> {starship.model}
                         </Card.Text>
                         <Card.Text>
-                            <strong>Appearce in films:</strong>
+                            <strong>Cargo Capacity</strong> {starship.cargo_capacity}
                         </Card.Text>
-                        {person.films.map((film) => (
-                            <div key={film.id}>
-                                <Link to={`/films/${film.id}`}>{film.title}</Link>
+                        <Card.Text>
+                                <strong>Appearce in films:</strong>
+                        </Card.Text>
+                        {starship.films.map((films) => (
+                            <div key={films.id}>
+                                <Link to={`/films/${films.id}`}>{films.title}</Link>
                             </div>
                         ))}
                     </Card.Body>
@@ -75,4 +80,4 @@ const PersonPage = () => {
 }
 
 
-export default PersonPage
+export default StarshipPage

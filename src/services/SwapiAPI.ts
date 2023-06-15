@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MoviesResponse, PeopleResponse, PlanetsResponse, StarshipsResponse, VehiclesResponse } from '../types'
+import { MoviesResponse, PeopleResponse, PlanetsResponse, SpeciesResponse, StarshipsResponse, VehiclesResponse } from '../types'
 
 const instance = axios.create({
 	baseURL: "https://swapi.thehiveresistance.com/api",
@@ -27,10 +27,14 @@ export const searchPlanet = async (query: string, page = 1) => {
 	return get<PlanetsResponse>(`/planets/?search=${query}&page=${page}`)
 }
 
-export const searchStarships = async (query: string, page = 1) => {
+export const searchSpecie = async (query: string, page = 1) => {
+	return get<SpeciesResponse>(`/starships/?search=${query}&page=${page}`)
+}
+
+export const searchStarship = async (query: string, page = 1) => {
 	return get<StarshipsResponse>(`/starships/?search=${query}&page=${page}`)
 }
 
-export const searchVehicles = async (query: string, page = 1) => {
+export const searchVehicle = async (query: string, page = 1) => {
 	return get<VehiclesResponse>(`/vehicles/?search=${query}&page=${page}`)
 }

@@ -56,30 +56,28 @@ const MoviePage = () => {
             {movie && (
 
                 <Card>
+                    <h1>{movie.title}</h1>
                     <Card.Body>
-                        <Card.Title>{movie.title}</Card.Title>
-                            <Card.Text>
-                                <strong>Episode</strong> {movie.episode_id}
+                        <Card.Text>
+                            <strong>Episode</strong> {movie.episode_id}
                         </Card.Text>
                         <Card.Text>
-                                <strong>Relaese date</strong> {movie.release_date}
+                            <strong>Relaese date</strong> {movie.release_date}
                         </Card.Text>
                         <Card.Text>
                             {movie.opening_crawl}
-                            </Card.Text>
-                            <Card.Text>
-                                 <strong>Characters</strong>
-                            </Card.Text>
-                                {movie.characters.map((person) => (
-                                    <div key={person.id}>
-                                        <Link to={`/people/${person.id}`}>{person.name}</Link>
-                                    </div>
-                                ))}
+                        </Card.Text>
+                        <Card.Text>
+                            <strong>Characters</strong>
+                        </Card.Text>
+                        {movie.characters.map((person) => (
+                            <div key={person.id}>
+                                <Link to={`/people/${person.id}`}>{person.name}</Link>
+                             </div>
+                        ))}
                     </Card.Body>
-
                 </Card>
-
-      )}
+            )}
     </>
     )
 }

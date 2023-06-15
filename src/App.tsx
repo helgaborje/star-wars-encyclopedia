@@ -10,6 +10,12 @@ import MoviePage from './pages/MoviePages/MoviePage'
 import NotFound from './pages/NotFound'
 import PlanetsPage from './pages/PlanetPages/PlanetsPage'
 import PlanetPage from './pages/PlanetPages/PlanetPage'
+import SpeciesPage from './pages/SpeciesPages/SpeciesPage'
+import SpeciePage from './pages/SpeciesPages/SpeciePage'
+import StarshipsPage from './pages/StarshipPages/StarshipsPage'
+import StarshipPage from './pages/StarshipPages/StarshipPage'
+import VehiclesPage from './pages/VehiclesPages/VehiclesPage'
+import VehiclePage from './pages/VehiclesPages/VehiclePage'
 
 const App = () => {
 
@@ -22,17 +28,21 @@ const App = () => {
 						<Route path='/' element={<HomePage/>} />
 						<Route path='/films' element={<MoviesPage />} />
 						<Route path='/films/:id' element={<MoviePage />} />
+
 						<Route path='/people' element={<PeoplePage />} />
 						<Route path='/people/:id' element={<PersonPage />} />
 
 						<Route path='/planets' element={<PlanetsPage />} />
 						<Route path='/planets/:id' element={<PlanetPage />} />
-						{/* <Route path='/species' element={<SpeciesPage />} />
+
+						<Route path='/species' element={<SpeciesPage />} />
 						<Route path='/species/:id' element={<SpeciePage />} />
-						<Route path='/starships' element={<starshipsPage />} />
-						<Route path='/starships/:id' element={<StarshipsPage />} />
+
+						<Route path='/starships' element={<StarshipsPage />} />
+						<Route path='/starships/:id' element={<StarshipPage />} />
+						
 						<Route path='/vehicles' element={<VehiclesPage />} />
-						<Route path='/vehicles/:id' element={<VehiclePage/>} /> */}
+						<Route path='/vehicles/:id' element={<VehiclePage/>} />
 
 						<Route path="*" element={<NotFound />} />
 					</Routes>

@@ -1,4 +1,4 @@
-export type Vechicles = {
+export type Vehicles = {
     id: number
     name: string
     model: string
@@ -13,6 +13,10 @@ export type Vechicles = {
     consumables: string
     pilots_count: number
     films_count: number
+    films: {
+        id: number
+        title: string
+    } []
 }
 
 export type VehiclesResponse = {

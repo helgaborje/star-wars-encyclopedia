@@ -14,7 +14,11 @@ export type Species = {
     homeworld:{
         id: number
         name: string
-    }
+    }[]
+    people: {
+        id: number
+        name: string
+    }[]
 }
 
 export type SpeciesResponse = {

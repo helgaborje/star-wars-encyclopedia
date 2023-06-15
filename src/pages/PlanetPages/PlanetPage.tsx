@@ -1,9 +1,9 @@
 import axios from 'axios'
+import Alert from 'react-bootstrap/Alert'
+import Card from 'react-bootstrap/Card'
 import { useEffect, useState } from 'react'
 import { Planets } from '../../types'
 import { Link, useParams } from 'react-router-dom'
-import Card from 'react-bootstrap/Card'
-import Alert from 'react-bootstrap/Alert'
 
 
 const PlanetPage = () => {
@@ -56,27 +56,25 @@ const PlanetPage = () => {
             {planet && (
 
                 <Card>
+                    <h1>{planet.name}</h1>
                     <Card.Body>
-                        <Card.Title>{planet.name}</Card.Title>
-                            <Card.Text>
-                                <strong>Rotaion period</strong> {planet.rotation_period}
+                        <Card.Text>
+                            <strong>Rotaion period</strong> {planet.rotation_period}
                         </Card.Text>
                         <Card.Text>
-                                <strong>Climate</strong> {planet.climate}
+                            <strong>Climate</strong> {planet.climate}
                         </Card.Text>
-                            <Card.Text>
-                                 <strong>Residents:</strong>
-                            </Card.Text>
-                                {planet.residents.map((person) => (
-                                    <div key={person.id}>
-                                        <Link to={`/people/${person.id}`}>{person.name}</Link>
-                                    </div>
-                                ))}
+                        <Card.Text>
+                                <strong>Residents:</strong>
+                        </Card.Text>
+                        {planet.residents.map((person) => (
+                            <div key={person.id}>
+                                <Link to={`/people/${person.id}`}>{person.name}</Link>
+                            </div>
+                        ))}
                     </Card.Body>
-
                 </Card>
-
-      )}
+            )}
     </>
     )
 }

@@ -2,26 +2,26 @@ import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Card from 'react-bootstrap/Card'
 import { useEffect, useState } from 'react'
-import { People } from '../../types'
+import { Species } from '../../types'
 import { Link, useParams } from 'react-router-dom'
 
 
-const PersonPage = () => {
+const SpeciePage = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const [person, setPerson] = useState<People | null>(null)
+    const [specie, setSpecie] = useState<Species | null>(null)
     const { id } = useParams()
-    const personId = Number(id)
+    const specieId = Number(id)
     
 
-    const getPerson = async (id: number) => {
+    const getSpecie = async (id: number) => {
         setError(null)
         setLoading(true)
 
         try {
-            const res = await axios.get(`https://swapi.thehiveresistance.com/api/people/${id}`)
+            const res = await axios.get(`https://swapi.thehiveresistance.com/api/species/${id}`)
             await new Promise(r => setTimeout(r, 3000))
-            setPerson(res.data)
+            setSpecie(res.data)
     
         } catch (err: any) {
             setError(err.message)
@@ -32,9 +32,9 @@ const PersonPage = () => {
     
 	useEffect(() => {
 
-        getPerson(personId)
+        getSpecie(specieId)
         
-	}, [personId])
+	}, [specieId])
     
     return (
         <>
@@ -51,20 +51,20 @@ const PersonPage = () => {
                 </div>
             )}
             
-            {person && (
+            {specie && (
 
                 <Card>
-                    <h1>{person.name}</h1>
+                    <h1>{specie.name}</h1>
                     <Card.Body>
                         <Card.Text>
-                            <strong>Homeworld</strong> {person.homeworld.name}
+                            <strong>Classification</strong> {specie.classification}
                         </Card.Text>
                         <Card.Text>
-                            <strong>Appearce in films:</strong>
+                            <strong>People of this specie:</strong>
                         </Card.Text>
-                        {person.films.map((film) => (
-                            <div key={film.id}>
-                                <Link to={`/films/${film.id}`}>{film.title}</Link>
+                        {specie.people.map((person) => (
+                            <div key={person.id}>
+                                <Link to={`/people/${person.id}`}>{person.name}</Link>
                             </div>
                         ))}
                     </Card.Body>
@@ -75,4 +75,4 @@ const PersonPage = () => {
 }
 
 
-export default PersonPage
+export default SpeciePage

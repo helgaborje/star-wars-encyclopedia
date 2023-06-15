@@ -15,6 +15,10 @@ export type Starships = {
     consumables: string
     pilots_count: number
     films_count: number
+    films: {
+        id: number
+        title: string
+    } []
 
 }
 

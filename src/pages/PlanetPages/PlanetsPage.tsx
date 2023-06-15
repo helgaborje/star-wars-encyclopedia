@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react'
+import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
-import ListGroup from 'react-bootstrap/ListGroup'
-import { useNavigate, useSearchParams } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
+import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
-import axios from 'axios'
-import Pagination from '../../components/Pagination'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { PlanetsResponse } from '../../types'
-import SearchForm from '../../components/SearchForm'
 import { searchPlanet as searchPlanetAPI } from '../../services/SwapiAPI'
+import SearchForm from '../../components/SearchForm'
+import Pagination from '../../components/Pagination'
 
 
 const PlanetsPage = () => {

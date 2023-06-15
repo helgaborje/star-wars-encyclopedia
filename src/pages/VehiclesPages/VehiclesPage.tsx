@@ -5,16 +5,16 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
-import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { SpeciesResponse } from '../../types'
-import { searchSpecie as searchSpecieAPI } from '../../services/SwapiAPI'
-import Pagination from '../../components/Pagination'
+import { useEffect, useState } from 'react'
+import { VehiclesResponse } from '../../types'
+import { searchVehicle as searchVehicleAPI } from '../../services/SwapiAPI'
 import SearchForm from '../../components/SearchForm'
+import Pagination from '../../components/Pagination'
 
 
-const SpeciesPage = () => {
-	const [result, setResult] = useState<SpeciesResponse|null>(null)
+const VehiclesPage = () => {
+	const [result, setResult] = useState<VehiclesResponse|null>(null)
 	const [error, setError] = useState<string|null>(null)
 	const [loading, setLoading] = useState(false)
 	const navigate = useNavigate()
@@ -25,13 +25,13 @@ const SpeciesPage = () => {
 
 	const search = searchParams.get('search')
 
-	const getSpecies = async (page: number) => {
+	const getVehicles = async (page: number) => {
         setError(null)
 		setLoading(true)
 		setResult(null)
 		
 		try {
-			const res = await axios.get(`https://swapi.thehiveresistance.com/api/species?page=${page}`)
+			const res = await axios.get(`https://swapi.thehiveresistance.com/api/vehicles?page=${page}`)
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res.data)	
 
@@ -42,13 +42,13 @@ const SpeciesPage = () => {
 		setLoading(false)
 	}
 
-	const searchSpecie = async (searchQuery: string, searchPage = 0 ) => {
+	const searchVehicle = async (searchQuery: string, searchPage = 0 ) => {
         setError(null)
         setLoading(true)
 		setResult(null)
 		
         try {
-			const res = await searchSpecieAPI(searchQuery, searchPage)
+			const res = await searchVehicleAPI(searchQuery, searchPage)
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res)	
 
@@ -71,7 +71,7 @@ const SpeciesPage = () => {
 	
 		setPage(0)
 		setSearchParams({ search: searchInput })
-		searchSpecie(searchInput)
+		searchVehicle(searchInput)
 	}
     
 	useEffect(() => {
@@ -85,7 +85,7 @@ const SpeciesPage = () => {
 		}
 
 		if (!search) {
-			getSpecies(page)
+			getVehicles(page)
 		} else {
 			setSearchParams({search: searchInput})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,7 +94,7 @@ const SpeciesPage = () => {
 	
 	return (
 		<>
-			<h1>Species</h1>
+			<h1>Vehicles</h1>
 
 			{error && <Alert variant='warning'>{error}</Alert>}
 
@@ -130,7 +130,7 @@ const SpeciesPage = () => {
 												<Card.Body>
 													<Card.Title>{hit.name}</Card.Title>
 														<Card.Text>
-															<strong>Classification</strong> {hit.classification}
+															<strong>Model</strong> {hit.model}
 														</Card.Text>
 														<Card.Text>
 															<strong>Appearce in</strong> {hit.films_count} <strong>films</strong>
@@ -175,7 +175,4 @@ const SpeciesPage = () => {
 	)
 }
 
-export default SpeciesPage
-
-
-   
+export default VehiclesPage

@@ -10,10 +10,11 @@ h1 {
     font-family: 'StarWarsFont';
     font-size: 5em;
     color: #ffe81f;
+    margin-left: 10px;
 }
 h2, h3, h4, h5, h6 {
     margin-bottom: 0.75em;
-        font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald', sans-serif;
 }
 
 body {
@@ -33,13 +34,13 @@ a {
 .card {
     color: white;
     background-color: rgb(14, 13, 13);
-    border-color: black;
+    border-color: rgb(14, 13, 13);
     opacity: 80%;
 }
 
 .list-group-item {
     color: white;
-    background-color: rgb(54, 54, 54);
+    background-color: rgb(14, 13, 13);
     border-color: black;
 }
 
