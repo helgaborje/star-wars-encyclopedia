@@ -117,9 +117,9 @@ const PeoplePage = () => {
 
             {result && (
 				<div id="results">
-					{result.data.length > 0 && search ?
+					{result.data.length > 0 && search ? (
 						<p>Showing {result.total} search results for {search}...</p>
-						: <p></p>
+						):( search && <p>No results found for {search}.</p>)
 					}
 					<Row xs={1} md={2} lg={3} xxl={4} className="g-4">
 						{result.data.map(hit => (
