@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { VehiclesResponse } from '../../types'
 import { searchVehicle as searchVehicleAPI } from '../../services/SwapiAPI'
@@ -23,6 +23,7 @@ const VehiclesPage = () => {
 	const [searchInput, setSearchInput] = useState("")
 	const [searchParams, setSearchParams] = useSearchParams()
 
+	const location = useLocation()
 	const search = searchParams.get('search')
 
 	const getVehicles = async (page: number) => {
@@ -89,7 +90,7 @@ const VehiclesPage = () => {
 		} else {
 			setSearchParams({search: searchInput})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		}}, [page, search])
+		}}, [page, search, location])
 	
 	
 	return (

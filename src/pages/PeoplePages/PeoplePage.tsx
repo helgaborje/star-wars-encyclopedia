@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
 import { useEffect, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { PeopleResponse } from '../../types'
 import { searchPerson } from '../../services/SwapiAPI'
 import Pagination from '../../components/Pagination'
@@ -22,7 +22,8 @@ const PeoplePage = () => {
 	const [pageParams, setPageParams] = useSearchParams("page")
 	const [searchInput, setSearchInput] = useState("")
 	const [searchParams, setSearchParams] = useSearchParams()
-
+	
+	const location = useLocation()
 	const search = searchParams.get('search')
 
 	const getPeople = async (page: number) => {
@@ -89,7 +90,7 @@ const PeoplePage = () => {
 		} else {
 			setSearchParams({search: searchInput})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		}}, [page, search])
+		}}, [page, search, location])
 	
 	
 	return (
