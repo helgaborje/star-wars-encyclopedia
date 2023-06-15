@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { StarshipsResponse } from '../../types'
 import { searchStarship as searchStarshipAPI } from '../../services/SwapiAPI'
@@ -23,7 +23,6 @@ const StarshipsPage = () => {
 	const [searchInput, setSearchInput] = useState("")
 	const [searchParams, setSearchParams] = useSearchParams()
 
-	const location = useLocation()
 	const search = searchParams.get('search')
 
 	const getStarships = async (page: number) => {
@@ -74,7 +73,7 @@ const StarshipsPage = () => {
 		setSearchParams({ search: searchInput })
 		searchStarship(searchInput)
 	}
-    
+
 	useEffect(() => {
 		const currentPage = pageParams.get("page")
 		
@@ -84,13 +83,17 @@ const StarshipsPage = () => {
 			setPage(1)
 			setPageParams({ page: "1" })
 		}
-
+	}, [pageParams, setPageParams])
+    
+	useEffect(() => {
 		if (!search) {
 			getStarships(page)
 		} else {
+			searchStarship(search, page)
 			setSearchParams({search: searchInput})
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		}}, [page, search, location])
+	}, [page, search, location])
 	
 	
 	return (

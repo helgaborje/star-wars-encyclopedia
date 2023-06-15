@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { SpeciesResponse } from '../../types'
 import { searchSpecie as searchSpecieAPI } from '../../services/SwapiAPI'
 import Pagination from '../../components/Pagination'
@@ -23,7 +23,6 @@ const SpeciesPage = () => {
 	const [searchInput, setSearchInput] = useState("")
 	const [searchParams, setSearchParams] = useSearchParams()
 
-	const location = useLocation()
 	const search = searchParams.get('search')
 
 	const getSpecies = async (page: number) => {
@@ -74,7 +73,7 @@ const SpeciesPage = () => {
 		setSearchParams({ search: searchInput })
 		searchSpecie(searchInput)
 	}
-    
+
 	useEffect(() => {
 		const currentPage = pageParams.get("page")
 		
@@ -84,13 +83,17 @@ const SpeciesPage = () => {
 			setPage(1)
 			setPageParams({ page: "1" })
 		}
-
+	}, [pageParams, setPageParams])
+    
+	useEffect(() => {
 		if (!search) {
 			getSpecies(page)
 		} else {
+			searchSpecie(search, page)
 			setSearchParams({search: searchInput})
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		}}, [page, search, location])
+	}, [page, search, location])
 	
 	
 	return (

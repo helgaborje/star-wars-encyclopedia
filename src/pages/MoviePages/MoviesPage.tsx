@@ -3,14 +3,14 @@ import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import axios from 'axios'
 import { MoviesResponse } from '../../types'
 import Pagination from '../../components/Pagination'
 import SearchForm from '../../components/SearchForm'
-import { searchMovie } from '../../services/SwapiAPI'
+import { searchMovie as searchMovieAPI } from '../../services/SwapiAPI'
 
 
 const MoviesPage = () => {
@@ -23,7 +23,6 @@ const MoviesPage = () => {
 	const [searchInput, setSearchInput] = useState("")
 	const [searchParams, setSearchParams] = useSearchParams()
 
-	const location = useLocation()
 	const search = searchParams.get('search')
 
 	const getMovies = async (page: number) => {
@@ -49,7 +48,7 @@ const MoviesPage = () => {
 		setResult(null)
 		
         try {
-			const res = await searchMovie(searchQuery, searchPage)
+			const res = await searchMovieAPI(searchQuery, searchPage)
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res)	
 			
@@ -85,13 +84,17 @@ const MoviesPage = () => {
 			setPage(1)
 			setPageParams({ page: "1" })
 		}
+	}, [pageParams, setPageParams])
 
+	useEffect(() => {
 		if (!search) {
 			getMovies(page)
 		} else {
+			searchMovies(search, page)
 			setSearchParams({search: searchInput})
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		}}, [page, search, location])
+	}, [page, search, location])
 	
 	return (
 		<>
