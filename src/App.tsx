@@ -40,15 +40,13 @@ const App = () => {
 
 						<Route path='/starships' element={<StarshipsPage />} />
 						<Route path='/starships/:id' element={<StarshipPage />} />
-						
+
 						<Route path='/vehicles' element={<VehiclesPage />} />
 						<Route path='/vehicles/:id' element={<VehiclePage/>} />
 
 						<Route path="*" element={<NotFound />} />
 					</Routes>
-
-			</Container>
-			
+				</Container>
 			</div>
 		</>
 	)

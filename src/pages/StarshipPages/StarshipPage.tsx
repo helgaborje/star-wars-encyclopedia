@@ -75,7 +75,7 @@ const StarshipPage = () => {
                     </Card.Body>
                 </Card>
             )}
-    </>
+        </>
     )
 }
 

@@ -70,7 +70,7 @@ const PersonPage = () => {
                     </Card.Body>
                 </Card>
             )}
-    </>
+        </>
     )
 }
 

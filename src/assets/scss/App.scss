@@ -3,12 +3,12 @@
 
 @font-face {
     font-family: 'StarWarsFont';
-    src: url('../fonts/Starjhol.ttf'); /* Replace the path and file name with your font file */
+    src: url('../fonts/Starjhol.ttf'); 
   }
 
 h1 {
     font-family: 'StarWarsFont';
-    font-size: 5em;
+    font-size: 4rem;
     color: #ffe81f;
     margin-left: 10px;
 }
