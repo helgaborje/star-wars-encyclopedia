@@ -69,9 +69,9 @@ const PlanetsPage = () => {
 			return
 		}
 	
-		setPage(0)
+		// setPage(0)
 		setSearchParams({ search: searchInput })
-		searchPlanet(searchInput)
+		searchPlanet(searchInput, page)
 	}
 
 	useEffect(() => {
@@ -81,20 +81,22 @@ const PlanetsPage = () => {
 			setPage(parseInt(currentPage))
 		} else {
 			setPage(1)
-			setPageParams({ page: "1" })
+			// setPageParams({ page: "1" })
 		}
 	}, [pageParams, setPageParams])
     
 	useEffect(() => {
-		if (!search) {
+		const currentSearch = searchParams.get('search')
+		const currentPage = searchParams.get('page')
+
+		if (!currentSearch) {
 			getPlanets(page)
 		} else {
-			searchPlanet(search, page)
-			setSearchParams({search: searchInput})
+			searchPlanet(currentSearch, parseInt(currentPage || '1'))
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [page, search, location])
-	
+
+		}, [page, searchParams])
+
 	
 	return (
 		<>
