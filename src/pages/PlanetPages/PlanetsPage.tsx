@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
@@ -25,7 +26,7 @@ const PlanetsPage = () => {
 	
 	const search = searchParams.get('search')
 
-	const getPlanets = async (page: number) => {
+	const getPlanets = async () => {
         setError(null)
 		setLoading(true)
 		setResult(null)
@@ -69,33 +70,33 @@ const PlanetsPage = () => {
 			return
 		}
 	
-		// setPage(0)
-		setSearchParams({ search: searchInput })
+		setSearchParams({ search: searchInput, page: "1" })
 		searchPlanet(searchInput, page)
 	}
 
 	useEffect(() => {
 		const currentPage = pageParams.get("page")
 		
-		if (currentPage) {
-			setPage(parseInt(currentPage))
-		} else {
+		if (!currentPage) {
 			setPage(1)
-			// setPageParams({ page: "1" })
+			setPageParams({ page: "1" })
+		} else {
+			setPage(parseInt(currentPage))
 		}
 	}, [pageParams, setPageParams])
-    
+	
 	useEffect(() => {
 		const currentSearch = searchParams.get('search')
 		const currentPage = searchParams.get('page')
 
 		if (!currentSearch) {
-			getPlanets(page)
+			getPlanets()
 		} else {
 			searchPlanet(currentSearch, parseInt(currentPage || '1'))
 		}
 
 		}, [page, searchParams])
+    
 
 	
 	return (
