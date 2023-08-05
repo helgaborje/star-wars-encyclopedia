@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
@@ -25,7 +27,7 @@ const VehiclesPage = () => {
 
 	const search = searchParams.get('search')
 
-	const getVehicles = async (page: number) => {
+	const getVehicles = async () => {
         setError(null)
 		setLoading(true)
 		setResult(null)
@@ -35,7 +37,6 @@ const VehiclesPage = () => {
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res.data)	
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			setError(err.message)
 		}
@@ -52,7 +53,6 @@ const VehiclesPage = () => {
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res)	
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			setError(err.message)
 		}
@@ -69,30 +69,33 @@ const VehiclesPage = () => {
 			return
 		}
 	
-		setPage(0)
-		setSearchParams({ search: searchInput })
-		searchVehicle(searchInput)
+		setSearchParams({ search: searchInput, page: "1"  })
+		searchVehicle(searchInput, page)
 	}
 
 	useEffect(() => {
 		const currentPage = pageParams.get("page")
 		
-		if (currentPage) {
-			setPage(parseInt(currentPage))
-		} else {
+		if (!currentPage) {
 			setPage(1)
 			setPageParams({ page: "1" })
+		} else {
+			setPage(parseInt(currentPage))
 		}
+
 	}, [pageParams, setPageParams])
     
 	useEffect(() => {
-		if (!search) {
-			getVehicles(page)
+		const currentSearch = searchParams.get('search')
+		const currentPage = searchParams.get('page')
+
+		if (!currentSearch) {
+			getVehicles()
 		} else {
-			searchVehicle(search,page)
-			setSearchParams({search: searchInput})
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		}}, [page, search])
+			searchVehicle(currentSearch, parseInt(currentPage || '1'))
+		}
+
+	}, [page, search, location])
 	
 	
 	return (

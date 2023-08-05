@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
@@ -70,31 +71,33 @@ const MoviesPage = () => {
 			return
 		}
 	
-		setPage(0)
-		setSearchParams({ search: searchInput })
+		setSearchParams({ search: searchInput, page: "1" })
 		searchMovies(searchInput)
 	}
 
 	useEffect(() => {
 		const currentPage = pageParams.get("page")
 		
-		if (currentPage) {
-			setPage(parseInt(currentPage))
-		} else {
+		if (!currentPage) {
 			setPage(1)
 			setPageParams({ page: "1" })
+		} else {
+			setPage(parseInt(currentPage))
 		}
+
 	}, [pageParams, setPageParams])
 
 	useEffect(() => {
-		if (!search) {
+		const currentSearch = searchParams.get('search')
+		const currentPage = searchParams.get('page')
+
+		if (!currentSearch) {
 			getMovies(page)
 		} else {
-			searchMovies(search, page)
-			setSearchParams({search: searchInput})
+			searchMovies(currentSearch, parseInt(currentPage || '1'))
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [page, search, location])
+
+	}, [page])
 	
 	return (
 		<>

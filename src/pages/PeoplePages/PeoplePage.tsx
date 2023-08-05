@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
@@ -25,7 +27,7 @@ const PeoplePage = () => {
 	
 	const search = searchParams.get('search')
 
-	const getPeople = async (page: number) => {
+	const getPeople = async () => {
         setError(null)
 		setLoading(true)
 		setResult(null)
@@ -35,7 +37,6 @@ const PeoplePage = () => {
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res.data)	
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			setError(err.message)
 		}
@@ -52,7 +53,6 @@ const PeoplePage = () => {
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res)	
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			setError(err.message)
 		}
@@ -69,31 +69,33 @@ const PeoplePage = () => {
 			return
 		}
 	
-		setPage(0)
-		setSearchParams({ search: searchInput })
-		searchPeople(searchInput)
+		setSearchParams({ search: searchInput, page: "1"  })
+		searchPeople(searchInput, page)
 	}
 
 	useEffect(() => {
 		const currentPage = pageParams.get("page")
 		
-		if (currentPage) {
-			setPage(parseInt(currentPage))
-		} else {
+		if (!currentPage) {
 			setPage(1)
 			setPageParams({ page: "1" })
+		} else {
+			setPage(parseInt(currentPage))
 		}
+
 	}, [pageParams, setPageParams])
 
 	useEffect(() => {
-		if (!search) {
-			getPeople(page)
+		const currentSearch = searchParams.get('search')
+		const currentPage = searchParams.get('page')
+		
+		if (!currentSearch) {
+			getPeople()
 		} else {
-			searchPeople(search, page)
-			setSearchParams({ search: searchInput })
+			searchPeople(currentSearch, parseInt(currentPage || '1'))
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [page, search])
+
+	}, [page, search, location])
 	
 	
 	return (

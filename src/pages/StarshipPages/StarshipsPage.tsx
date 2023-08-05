@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
@@ -25,7 +27,7 @@ const StarshipsPage = () => {
 
 	const search = searchParams.get('search')
 
-	const getStarships = async (page: number) => {
+	const getStarships = async () => {
         setError(null)
 		setLoading(true)
 		setResult(null)
@@ -35,7 +37,6 @@ const StarshipsPage = () => {
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res.data)	
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			setError(err.message)
 		}
@@ -52,7 +53,6 @@ const StarshipsPage = () => {
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res)	
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			setError(err.message)
 		}
@@ -69,30 +69,32 @@ const StarshipsPage = () => {
 			return
 		}
 	
-		setPage(0)
-		setSearchParams({ search: searchInput })
-		searchStarship(searchInput)
+		setSearchParams({ search: searchInput, page: "1" })
+		searchStarship(searchInput, page)
 	}
 
 	useEffect(() => {
 		const currentPage = pageParams.get("page")
 		
-		if (currentPage) {
-			setPage(parseInt(currentPage))
-		} else {
+		if (!currentPage) {
 			setPage(1)
 			setPageParams({ page: "1" })
+		} else {
+			setPage(parseInt(currentPage))
 		}
+
 	}, [pageParams, setPageParams])
     
 	useEffect(() => {
-		if (!search) {
-			getStarships(page)
+		const currentSearch = searchParams.get('search')
+		const currentPage = searchParams.get('page')
+
+		if (!currentSearch) {
+			getStarships()
 		} else {
-			searchStarship(search, page)
-			setSearchParams({search: searchInput})
+			searchStarship(currentSearch, parseInt(currentPage || '1'))
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+
 	}, [page, search, location])
 	
 	
