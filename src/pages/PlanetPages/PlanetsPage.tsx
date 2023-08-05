@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
@@ -36,7 +37,7 @@ const PlanetsPage = () => {
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res.data)	
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 		} catch (err: any) {
 			setError(err.message)
 		}
@@ -53,7 +54,7 @@ const PlanetsPage = () => {
 			await new Promise(r => setTimeout(r, 2000))
 			setResult(res)	
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 		} catch (err: any) {
 			setError(err.message)
 		}
@@ -83,6 +84,7 @@ const PlanetsPage = () => {
 		} else {
 			setPage(parseInt(currentPage))
 		}
+
 	}, [pageParams, setPageParams])
 	
 	useEffect(() => {
@@ -95,10 +97,8 @@ const PlanetsPage = () => {
 			searchPlanet(currentSearch, parseInt(currentPage || '1'))
 		}
 
-		}, [page, searchParams])
+	}, [page, search, location])
     
-
-	
 	return (
 		<>
 			<h1>Planets</h1>
