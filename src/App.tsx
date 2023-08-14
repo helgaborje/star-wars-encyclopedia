@@ -20,35 +20,33 @@ import VehiclePage from './pages/VehiclesPages/VehiclePage'
 const App = () => {
 
 	return (
-		<>
-			<div id="App">
-				<Navigation />
-				<Container className='py-3'>
-					<Routes>
-						<Route path='/' element={<HomePage/>} />
-						<Route path='/films' element={<MoviesPage />} />
-						<Route path='/films/:id' element={<MoviePage />} />
+		<div id="App">
+			<Navigation />
+			<Container className='py-3'>
+				<Routes>
+					<Route path='/' element={<HomePage/>} />
+					<Route path='/films' element={<MoviesPage />} />
+					<Route path='/films/:id' element={<MoviePage />} />
 
-						<Route path='/people' element={<PeoplePage />} />
-						<Route path='/people/:id' element={<PersonPage />} />
+					<Route path='/people' element={<PeoplePage />} />
+					<Route path='/people/:id' element={<PersonPage />} />
 
-						<Route path='/planets' element={<PlanetsPage />} />
-						<Route path='/planets/:id' element={<PlanetPage />} />
+					<Route path='/planets' element={<PlanetsPage />} />
+					<Route path='/planets/:id' element={<PlanetPage />} />
 
-						<Route path='/species' element={<SpeciesPage />} />
-						<Route path='/species/:id' element={<SpeciePage />} />
+					<Route path='/species' element={<SpeciesPage />} />
+					<Route path='/species/:id' element={<SpeciePage />} />
 
-						<Route path='/starships' element={<StarshipsPage />} />
-						<Route path='/starships/:id' element={<StarshipPage />} />
+					<Route path='/starships' element={<StarshipsPage />} />
+					<Route path='/starships/:id' element={<StarshipPage />} />
 
-						<Route path='/vehicles' element={<VehiclesPage />} />
-						<Route path='/vehicles/:id' element={<VehiclePage/>} />
+					<Route path='/vehicles' element={<VehiclesPage />} />
+					<Route path='/vehicles/:id' element={<VehiclePage/>} />
 
-						<Route path="*" element={<NotFound />} />
-					</Routes>
-				</Container>
-			</div>
-		</>
+					<Route path="*" element={<NotFound />} />
+				</Routes>
+			</Container>
+		</div>
 	)
 }
 
