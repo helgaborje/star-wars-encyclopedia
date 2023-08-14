@@ -2,10 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
-import Button from 'react-bootstrap/Button'
-import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
-import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
@@ -98,7 +95,6 @@ const StarshipsPage = () => {
 
 	}, [page, search, location])
 	
-	
 	return (
 		<>
 			<h1>Starships</h1>
@@ -131,36 +127,13 @@ const StarshipsPage = () => {
 					<Row xs={1} md={2} lg={3} xxl={4} className="g-4">
 						{result.data.map(hit => (
 							<Col key={hit.id}>
-
-<Cards 
+								<Cards 
 									title={hit.name}
 									subtitle="Model"
 									description={hit.model}
 									info={`Appearce in ${hit.films_count} films`}
 									onReadMore={() => handleReadMore(hit.id)}
 								/>
-
-								{/* <Card style={{ width: '18rem' }}>
-										<ListGroup>
-											<ListGroup.Item>
-												<Card.Body>
-													<Card.Title>{hit.name}</Card.Title>
-														<Card.Text>
-															<strong>Model</strong> {hit.model}
-														</Card.Text>
-														<Card.Text>
-															<strong>Appearce in</strong> {hit.films_count} <strong>films</strong>
-														</Card.Text>
-												</Card.Body>
-												<div className="d-grid">
-												<Button
-													className='button'
-													onClick={() => handleReadMore(hit.id)}
-													variant="outline-warning">Read more</Button>
-												</div>
-											</ListGroup.Item>
-										</ListGroup>
-								</Card> */}
 							</Col>
                         ))}
 					</Row>
