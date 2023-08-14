@@ -28,7 +28,7 @@ export const searchPlanet = async (query: string, page = 1) => {
 }
 
 export const searchSpecie = async (query: string, page = 1) => {
-	return get<SpeciesResponse>(`/starships/?search=${query}&page=${page}`)
+	return get<SpeciesResponse>(`/species/?search=${query}&page=${page}`)
 }
 
 export const searchStarship = async (query: string, page = 1) => {
