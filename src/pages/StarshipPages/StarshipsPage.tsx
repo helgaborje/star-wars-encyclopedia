@@ -11,6 +11,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { StarshipsResponse } from '../../types'
 import { searchStarship as searchStarshipAPI } from '../../services/SwapiAPI'
+import Cards from '../../components/Cards'
 import SearchForm from '../../components/SearchForm'
 import Pagination from '../../components/Pagination'
 
@@ -130,7 +131,16 @@ const StarshipsPage = () => {
 					<Row xs={1} md={2} lg={3} xxl={4} className="g-4">
 						{result.data.map(hit => (
 							<Col key={hit.id}>
-								<Card style={{ width: '18rem' }}>
+
+<Cards 
+									title={hit.name}
+									subtitle="Model"
+									description={hit.model}
+									info={`Appearce in ${hit.films_count} films`}
+									onReadMore={() => handleReadMore(hit.id)}
+								/>
+
+								{/* <Card style={{ width: '18rem' }}>
 										<ListGroup>
 											<ListGroup.Item>
 												<Card.Body>
@@ -150,7 +160,7 @@ const StarshipsPage = () => {
 												</div>
 											</ListGroup.Item>
 										</ListGroup>
-								</Card>
+								</Card> */}
 							</Col>
                         ))}
 					</Row>

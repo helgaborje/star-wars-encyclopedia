@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import axios from 'axios'
 import { MoviesResponse } from '../../types'
+import Cards from '../../components/Cards'
 import Pagination from '../../components/Pagination'
 import SearchForm from '../../components/SearchForm'
 import { searchMovie as searchMovieAPI } from '../../services/SwapiAPI'
@@ -132,30 +133,13 @@ const MoviesPage = () => {
 					<Row xs={1} md={2} lg={3} xxl={4} className="g-4">
 						{result.data.map(hit => (
 							<Col key={hit.id}>
-								<Card style={{ width: '18rem' }}>
-									<ListGroup>
-										<ListGroup.Item>
-											<Card.Body>
-												<Card.Title>{hit.title}</Card.Title>
-												<Card.Text>
-													<strong>Episode:</strong> {hit.episode_id}
-												</Card.Text>
-												<Card.Text>
-													<strong>Released:</strong> {hit.release_date}
-												</Card.Text>
-												<Card.Text>
-													{hit.characters_count} <strong>characters</strong>
-												</Card.Text>
-											</Card.Body>
-											<div className="d-grid">
-												<Button
-													className='button'
-													onClick={() => handleReadMore(hit.id)}
-													variant="outline-warning">Read more</Button>
-											</div>
-										</ListGroup.Item>
-									</ListGroup>
-								</Card>
+								<Cards 
+									title={hit.title}
+									subtitle="Episode"
+									description={hit.episode_id}
+									info={`Released: ${hit.release_date}, Characters: ${hit.characters_count}`}
+									onReadMore={() => handleReadMore(hit.id)}
+								/>
 							</Col>
 						))}
 					</Row>

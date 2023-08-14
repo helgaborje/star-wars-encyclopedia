@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PeopleResponse } from '../../types'
 import { searchPerson } from '../../services/SwapiAPI'
+import Cards from '../../components/Cards'
 import Pagination from '../../components/Pagination'
 import SearchForm from '../../components/SearchForm'
 
@@ -130,7 +131,16 @@ const PeoplePage = () => {
 					<Row xs={1} md={2} lg={3} xxl={4} className="g-4">
 						{result.data.map(hit => (
 							<Col key={hit.id}>
-								<Card style={{ width: '18rem' }}>
+								<Cards 
+									title={hit.name}
+									subtitle="Homeworld"
+									description={hit.homeworld.name}
+									info={`Appearce in ${hit.films_count} films`}
+									onReadMore={() => handleReadMore(hit.id)}
+								/>
+
+
+								{/* <Card style={{ width: '18rem' }}>
 										<ListGroup>
 											<ListGroup.Item>
 												<Card.Body>
@@ -150,7 +160,7 @@ const PeoplePage = () => {
 												</div>
 											</ListGroup.Item>
 										</ListGroup>
-								</Card>
+								</Card> */}
 							</Col>
                         ))}
 					</Row>
