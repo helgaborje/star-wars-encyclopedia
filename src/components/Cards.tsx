@@ -14,7 +14,6 @@ interface CardsProps {
 const Cards: React.FC<CardsProps> = ({
     title,
     subtitle,
-    count,
     description,
     info,
     onReadMore,
@@ -26,7 +25,7 @@ const Cards: React.FC<CardsProps> = ({
                     <Card.Body>
                         <Card.Title>{title}</Card.Title>
                             <Card.Text>
-                                <strong>{subtitle}</strong> {description} {count}
+                                <strong>{subtitle}</strong> {description}
                             </Card.Text>
                             <Card.Text>
                             <strong>Additional info:</strong>
